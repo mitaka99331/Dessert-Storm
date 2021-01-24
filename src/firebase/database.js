@@ -104,7 +104,6 @@ const DatabaseProvider = ({ children }) => {
   const getLatestUsers = () => {
     const NUMBER_OF_USERS = 20;
     return usersRef.once("value").then((snapshot) => {
-      console.log(snapshot.val())
       const users = [];
 
       Object.keys(snapshot.val()).forEach((user) => {

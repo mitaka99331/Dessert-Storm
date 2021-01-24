@@ -7,13 +7,12 @@ import PeopleYouMayKnow from "../../components/PeopleYouMayKnow";
 import Friends from "../../components/Friends";
 
 const HomeContainer = styled.div`
-  padding-top: 67px;
 
   max-width: 1400px;
-  margin: auto;
-
+  margin-top:67px;
   display: flex;
   justify-content: space-between;
+  
 
   .homeBody {
     padding-top: 50px;
