@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PeopleYouMayKnowContainer from "./PeopleYouMayKnowContainer";
-import { Form, Button, Nav, Navbar, NavDropdown, Image } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import { useDatabase } from "../../firebase/database";
+import { Link } from "react-router-dom";
 
-const PeopleYouMayKnow = () => {
+const PeopleYouMayKnow = ({userId}) => {
   const { getLatestUsers, addFriend } = useDatabase();
   const [latestUsers, setLatestUsers] = useState([]);
 
@@ -19,13 +20,18 @@ const PeopleYouMayKnow = () => {
     <PeopleYouMayKnowContainer>
       <h4>People You May Know</h4>
 
-      {latestUsers.map(({ displayName, photoURL }, index) => {
+      {latestUsers.map(({ displayName, photoURL ,user }, index) => {
         return (
-          <div className="user" onClick={handleClickOnUser} key={index}>
+          <Link
+            onClick={handleClickOnUser}
+            key={index}
+            className="user"
+            to={`/profile?id=${user}`}
+          >
             <div id={index} className="userBackground"></div>
             <Image src={photoURL} roundedCircle />
             <p>{displayName}</p>
-          </div>
+          </Link>
         );
       })}
     </PeopleYouMayKnowContainer>

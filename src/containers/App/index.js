@@ -8,18 +8,25 @@ import PublicRoute from "../../components/PublicRoute";
 import ForgotPassword from "../../components/ForgotPassword";
 import AppContainer from "./AppContainer";
 import Home from "../Home";
+import ProfilePage from "../../components/ProfilePage";
+
 
 const App = () => {
+
   return (
     <AppContainer>
       <Router>
         <AuthProvider>
-            <Switch>
-              <PrivateRoute exact path="/" component={Home} />
-              <PublicRoute path="/signup" component={Signup} />
-              <PublicRoute path="/login" component={Login} />
-              <PublicRoute path="/forgot-password" component={ForgotPassword} />
-            </Switch>
+          <Switch>
+            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute
+              path="/profile"
+              component={ProfilePage}
+            />
+            <PublicRoute path="/signup" component={Signup} />
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/forgot-password" component={ForgotPassword} />
+          </Switch>
         </AuthProvider>
       </Router>
     </AppContainer>

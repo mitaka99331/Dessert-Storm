@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button, Nav, Navbar, NavDropdown, Image } from "react-bootstrap";
 import { useAuth } from "../../firebase/auth";
 import NavBarContainer from "./NavBarContainer";
+import { Link } from "react-router-dom";
 
 export const NavBar = () => {
   const { currentUser, logout } = useAuth();
@@ -31,7 +32,9 @@ export const NavBar = () => {
           <Nav className="mr-auto"></Nav>
 
           <Nav className="NavDropdown">
-            <Image src={currentUser.photoURL} roundedCircle />
+            <Link to="/profile">
+              <Image src={currentUser.photoURL} roundedCircle />
+            </Link>
 
             <NavDropdown
               title={currentUser.displayName}
