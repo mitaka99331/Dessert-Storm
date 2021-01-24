@@ -1,0 +1,58 @@
+import React, { useRef, useState } from "react";
+import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../firebase/auth";
+import ForgotPasswordContainer from "./ForgotPasswordContainer";
+
+const ForgotPassword = () => {
+  const emailRef = useRef();
+
+  const { resetPassword } = useAuth();
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setError("");
+      setMessage("");
+
+      setLoading(true);
+      await resetPassword(emailRef.current.value);
+      setMessage("Reset email was sent successfully");
+    } catch {
+      setError("Failed to reset password");
+    }
+    setLoading(false);
+  };
+
+  return (
+    <ForgotPasswordContainer>
+      <Card>
+        <Card.Body>
+          <h2>Password Reset</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          {message && <Alert variant="success">{message}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+            <Button disabled={loading} type="submit">
+              Reset Password
+            </Button>
+          </Form>
+          <div className="loginLink">
+            <Link to="/login">Log In</Link>
+          </div>
+        </Card.Body>
+      </Card>
+      <div className="signupLink">
+        Need an account? <Link to="/signup">Sign Up</Link>
+      </div>
+    </ForgotPasswordContainer>
+  );
+};
+export default ForgotPassword;
